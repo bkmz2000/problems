@@ -5,7 +5,7 @@ import os
 import urllib.request
 
 PORT = 5000
-JUDGE0_URL = os.environ.get('JUDGE0_URL', 'http://judge0:2358')
+JUDGE0_URL = os.environ.get('JUDGE0_URL', 'https://judge-zzsx.onrender.com')
 
 class Handler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
