@@ -43,12 +43,30 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_error(404, "Not found")
 
     def do_GET(self):
+        # Serve static files from /app/static
+        static_dir = os.path.join(os.getcwd(), "static")
         if self.path == '/':
             self.path = '/index.html'
-        return super().do_GET()
+        file_path = os.path.join(static_dir, self.path.lstrip('/'))
+        if os.path.isfile(file_path):
+            self.send_response(200)
+            if self.path.endswith('.html'):
+                self.send_header('Content-Type', 'text/html')
+            elif self.path.endswith('.css'):
+                self.send_header('Content-Type', 'text/css')
+            elif self.path.endswith('.js'):
+                self.send_header('Content-Type', 'application/javascript')
+            else:
+                self.send_header('Content-Type', 'application/octet-stream')
+            self.end_headers()
+            with open(file_path, 'rb') as f:
+                self.wfile.write(f.read())
+        else:
+            self.send_error(404, "File not found")
 
 if __name__ == '__main__':
-    os.chdir(os.path.join(os.path.dirname(__file__), '..'))
+    # Set working directory to /app (where server.py is)
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     with socketserver.TCPServer(("", PORT), Handler) as httpd:
         print(f"Serving at port {PORT}")
         httpd.serve_forever()

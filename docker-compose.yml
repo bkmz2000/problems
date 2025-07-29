@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   judge0:
-    image: judge0/api:1.13.0
+    image: judge0/api:latest
     container_name: judge0
     ports:
       - "2358:2358"
@@ -12,7 +12,7 @@ services:
 
   backend:
     build:
-      context: ./codeforces-clone/backend
+      context: ./backend
       dockerfile: Dockerfile
     container_name: codeforces-backend
     ports:
@@ -20,7 +20,7 @@ services:
     environment:
       - JUDGE0_URL=http://judge0:2358
     volumes:
-      - ./codeforces-clone:/app
+      - ./frontend:/app/static
     depends_on:
       - judge0
     restart: unless-stopped
