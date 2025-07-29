@@ -1,15 +1,26 @@
+let codeMirrorEditor = CodeMirror(document.getElementById('code-editor'), {
+  value: '# Write your code here\n',
+  mode: 'python',
+  theme: 'material',
+  lineNumbers: true,
+  indentUnit: 4,
+  tabSize: 4,
+  autofocus: true,
+  lineWrapping: true,
+});
+
 document.getElementById('file-upload').addEventListener('change', function (e) {
   const file = e.target.files[0];
   if (!file) return;
   const reader = new FileReader();
   reader.onload = function (event) {
-    document.getElementById('code-editor').value = event.target.result;
+    codeMirrorEditor.setValue(event.target.result);
   };
   reader.readAsText(file);
 });
 
 document.getElementById('submit-btn').addEventListener('click', async function () {
-  const code = document.getElementById('code-editor').value;
+  const code = codeMirrorEditor.getValue();
   document.getElementById('result').textContent = 'Submitting...';
   try {
     const response = await fetch('/submit', {

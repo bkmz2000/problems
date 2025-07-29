@@ -23,12 +23,16 @@ Output:
       </p>
     </div>
     <div class="editor-section">
-      <textarea id="code-editor" spellcheck="false">// Write your code here</textarea>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material.min.css">
+      <div id="code-editor"></div>
       <div class="actions">
         <input type="file" id="file-upload" />
         <button id="submit-btn">Submit Solution</button>
       </div>
       <div id="result"></div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
     </div>
   </div>
   <script src="script.js"></script>
